@@ -8,7 +8,7 @@ spring:
       auto-offset-reset: earliest
       group-id: customer-group      
     value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-    schema-registry-url: http://${PUBLIC_IP}:8081
+    schema-registry-url: http://${PUBLIC_IP}:8089
 
   jackson.serialization.indent_output: true
   
