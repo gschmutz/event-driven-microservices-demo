@@ -1,17 +1,12 @@
 FROM java:8-alpine
 VOLUME /tmp
 
-ENV MAVEN_VERSION 3.5.2
-ENV MAVEN_HOME /usr/lib/mvn
-ENV PATH $MAVEN_HOME/bin:$PATH
+RUN   apk update \
+     &&   apk add ca-certificates wget \
+     &&   update-ca-certificates   
 
-RUN wget http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz && \
-  tar -zxvf apache-maven-$MAVEN_VERSION-bin.tar.gz && \
-  rm apache-maven-$MAVEN_VERSION-bin.tar.gz && \
-mv apache-maven-$MAVEN_VERSION /usr/lib/mvn
+RUN wget https://github.com/gschmutz/event-driven-microservices-demo/releases/download/1.0.0/customer-management-ms-1.0-SNAPSHOT.jar 
 
-#RUN mvn clean install -DskipTests
+RUN mv customer-management-ms-1.0-SNAPSHOT.jar customer-management.jar
 
-ADD ./deploy/product-soaring-clouds-sequel-1.0-SNAPSHOT.jar /product.jar
-RUN sh -c 'touch /product.jar'
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=prod","-jar","/product.jar"]
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-Dspring.profiles.active=prod","-jar","/customer-management.jar"]
