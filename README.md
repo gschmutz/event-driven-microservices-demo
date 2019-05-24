@@ -9,13 +9,13 @@ The environment is completely based on docker containers. In order to easily sta
 Clone the GitHub repo
 
 ```
-git clone https://github.com/gschmutz/event-driven-microservices
+git clone https://github.com/gschmutz/event-driven-microservices-demo.git
 ```
 
-and navigate to the folder `event-driven-microservices`
+and navigate to the folder `event-driven-microservices-demo`
 
 ```
-cd event-driven-microservices
+cd event-driven-microservices-demo
 ```
 
 ### Preparing environment
@@ -62,7 +62,7 @@ docker-compose logs -f
 To show only the logs for some of the containers, for example `connect-1` and `connect-2`, use
 
 ```
-docker-compose logs -f connect-1 connect-2
+docker-compose logs -f broker-1 broker-2
 ```
 
 Some services in the `docker-compose.yml` are optional and can be removed, if you don't have enough resources to start them. 
@@ -101,25 +101,58 @@ If you don't like to work with the CLI, you can also create the Kafka topics usi
 
 ## Register Schemas in Confluent Schema Registry
 
-In the meta project
+Before we can use the microservices, we have to register the Avro schemas in the Confluent Schema Registry. 
+
+The Avro schemas are available in the `meta` project. Navigate into the folder 
 
 ```
-cd $SAMPLE_HOME/java/meta
+cd event-driven-microservices-demo/java/meta
 ```
 
-execute a schema-registry:register:
+and execute the `schema-registry:register` goal
 
 ```
 mvn schema-registry:register
 ```
 
-Schema should show up in Schema Registry UI: <http://streamingplatform:8002/#/>
+The schemas should be displayed in the Schema Registry UI: <http://streamingplatform:28002>. 
 
+## Start the Customer Microservice
+
+Let's now start the Customer Microservice. It is available as Docker image and has to be configured with the IP address of the Docker Host. 
+
+```
+docker run -ti -e PUBLIC_IP=$PUBLIC_IP -p 8080:8080 -d --name customer-management-ms  gschmutz/customer-management-ms
+```
+
+to view the log and see that is has been started successfully, enter
+
+```
+docker logs -f customer-managment-ms
+```
+
+
+## Start the Order Microservice
+
+Next let's also start the Order Microservice. It is also available as Docker image and has to be configured with the IP address of the Docker Host. 
+
+
+```
+docker run -ti -e PUBLIC_IP=$PUBLIC_IP -p 8081:8080 -d --name order-management-ms  gschmutz/order-management-ms
+```
+
+to view the log and see that is has been started successfully, enter
+
+```
+docker logs -f order-managment-ms
+```
 
 ## Add a Customer
 
+The following curl command adds a new customer via the Customer Microservice:
+
 ```
-{
+curl -X POST -H 'Content-Type: application/json' -i http://streamingplatform:8080/api/customers --data '{
   "customerId" : 1,
   "firstName" : "Guido",
   "lastName" : "Schmutz",
@@ -134,16 +167,16 @@ Schema should show up in Schema Registry UI: <http://streamingplatform:8002/#/>
          "country" : "Switzerland"
   		}
   ]
-}
+}'
 ```
 
 ```
-{
+curl -X POST -H 'Content-Type: application/json' -i http://streamingplatform:8080/api/customers --data '{
   "customerId" : 2,
   "firstName" : "Renata",
   "lastName" : "Schmutz",
   "title" : "Ms",
-  "emailAddress" : "guido.schmutz@someemail.com",
+  "emailAddress" : "renata.schmutz@someemail.com",
   "addresses" : [
   		{
   		  "street" : "Altikofenstrasse",
@@ -153,23 +186,7 @@ Schema should show up in Schema Registry UI: <http://streamingplatform:8002/#/>
          "country" : "Switzerland"
   		}
   ]
-}
-```
-
-```
-{
-  "customerId" : 1,
-  "firstName" : "Guido Werner",
-  "lastName" : "Schmutz",
-  "title" : "Mr",
-  "emailAddress" : "guido.schmutz@someemail.com",
-  "addresses" : [
-  		{
-  		  "street" : "Altikofenstrasse",
-  		  "city" : "Worblaufen"
-  		}
-  ]
-}
+}'
 ```
 
 
