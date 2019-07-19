@@ -5,7 +5,7 @@ RUN   apk update \
      &&   apk add ca-certificates wget \
      &&   update-ca-certificates   
 
-RUN wget https://github.com/gschmutz/event-driven-microservices-demo/releases/download/1.0.0/order-management-ms-1.0-SNAPSHOT.jar
+RUN wget https://github.com/gschmutz/event-driven-microservices-demo/releases/download/1.0.1/order-management-ms-1.0-SNAPSHOT.jar
 
 RUN mv order-management-ms-1.0-SNAPSHOT.jar order-management.jar
 
