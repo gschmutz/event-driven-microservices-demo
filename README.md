@@ -46,7 +46,7 @@ Last but not least add `streamingplatform` as an alias to the `/etc/hosts` file 
 
 ### Starting the infrastructure using Docker Compose
 
-From the `iot-truck-demo` folder, navigate to the docker folder and start the various docker containers 
+From the `event-driven-microservices-demo` folder, navigate to the docker folder and start the various docker containers 
 
 ```
 cd docker
