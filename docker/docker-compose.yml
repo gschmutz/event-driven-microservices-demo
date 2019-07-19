@@ -31,6 +31,8 @@ services:
       KAFKA_DELETE_TOPIC_ENABLE: 'true'
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
       KAFKA_JMX_PORT: 9994
+      KAFKA_JMX_OPTS: '-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.rmi.port=9994'
+      KAFKA_JMX_HOSTNAME: 'broker-1'      
     restart: always
 
   broker-2:
@@ -51,6 +53,8 @@ services:
       KAFKA_DELETE_TOPIC_ENABLE: 'true'
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
       KAFKA_JMX_PORT: 9993
+      KAFKA_JMX_OPTS: '-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.rmi.port=9993'
+      KAFKA_JMX_HOSTNAME: 'broker-2'            
     restart: always
 
   broker-3:
@@ -71,7 +75,8 @@ services:
       KAFKA_DELETE_TOPIC_ENABLE: 'true'
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'false'
       KAFKA_JMX_PORT: 9992
-
+      KAFKA_JMX_OPTS: '-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.local.only=false -Dcom.sun.management.jmxremote.rmi.port=9992'
+      KAFKA_JMX_HOSTNAME: 'broker-3'
     restart: always
       
   schema-registry:
@@ -82,38 +87,13 @@ services:
       - zookeeper-1
       - broker-1
     ports:
-      - "8089:8081"
+      - "18081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper-1:2181'
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN: '*'
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS: 'GET,POST,PUT,OPTIONS'
     restart: always
-      
-#  control-center:
-#    image: confluentinc/cp-enterprise-control-center:5.2.1
-#    hostname: control-center
-#    container_name: control-center
-#    depends_on:
-#      - zookeeper-1
-#      - broker-1
-#      - schema-registry
-#      - connect-1
-#    ports:
-#      - "29021:9021"
-#    environment:
-#      CONTROL_CENTER_BOOTSTRAP_SERVERS: 'broker-1:9092,broker-2:9093'
-#      CONTROL_CENTER_ZOOKEEPER_CONNECT: 'zookeeper-1:2181'
-#      CONTROL_CENTER_CONNECT_CLUSTER: 'connect-1:8083'
-#      CONTROL_CENTER_KSQL_URL: "http://ksql-server-1:8088"
-#      CONTROL_CENTER_KSQL_ADVERTISED_URL: "http://${PUBLIC_IP}:8088"
-#      CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
-#      CONTROL_CENTER_REPLICATION_FACTOR: 1
-#      CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
-#      CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
-#      CONFLUENT_METRICS_TOPIC_REPLICATION: 1
-#      PORT: 9021
-#    restart: always
     
   kafka-manager:
     image: trivadis/kafka-manager
@@ -141,11 +121,15 @@ services:
           connections:
             docker-kafka-server:
               properties:
-                bootstrap.servers: "broker-1:9092"
-              schema-registry: "http://schema-registry:8085"
+                bootstrap.servers: "broker-1:9092,broker-2:9093"
+              schema-registry:
+                url: "http://schema-registry:8081"
+#              connect:
+#                url: "http://connect-1:8083"
     depends_on:
       - broker-1
-    restart: always  
+    restart: always
+
 
   kadmin:
     image: hasnat/kadmin
@@ -156,11 +140,11 @@ services:
       ZOOKEEPER_HOST: zookeeper-1:2181
       KAFKA_HOST: broker-1:9092
       #SECURITY_PROTOCOL: SSL
-      #TRUST_STORE_LOCATION: ssl/client.truststore.jks
-      #TRUST_STORE_PASSWORD: password
-      #KEY_STORE_LOCATION: ssl/server.keystore.jks
-      #KEY_STORE_PASSWORD: password
-      #KEY_PASSWORD: password
+      TRUST_STORE_LOCATION: ssl/client.truststore.jks
+      TRUST_STORE_PASSWORD: password
+      KEY_STORE_LOCATION: ssl/server.keystore.jks
+      KEY_STORE_PASSWORD: password
+      KEY_PASSWORD: password
     restart: always
 
   schema-registry-ui:
