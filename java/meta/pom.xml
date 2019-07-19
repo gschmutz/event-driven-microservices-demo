@@ -99,7 +99,7 @@
     				<version>4.0.0</version>
 				<configuration>
 					<schemaRegistryUrls>
-						<param>http://streamingplatform:8089</param>
+						<param>http://streamingplatform:18081</param>
 					</schemaRegistryUrls>
 					<subjects>
 						<customer-v1-value>src/main/avro/Customer-v1.avsc</customer-v1-value>

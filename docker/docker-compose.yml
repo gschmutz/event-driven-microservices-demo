@@ -130,7 +130,6 @@ services:
       - broker-1
     restart: always
 
-
   kadmin:
     image: hasnat/kadmin
     container_name: kadmin
