@@ -212,16 +212,22 @@ kafka-console-consumer --bootstrap-server broker-1:9092 --topic customer --from-
 
 ## Consuming messages with Avro-Console Consumer
 
+Connect to the schema-registry container to use the `kafka-avro-console-consumer` utility:
+
 ```
 docker exec -ti schema-registry bash
 ```
+
+Consume the Avro messages from the topic `customer`
 
 ```
 kafka-avro-console-consumer --bootstrap-server broker-1:9092 --topic customer --property schema.registry.url=http://schema-registry:8081
 ```
 
+Consume the Avro messages from the topic `customer` using the `--from-beginning` option
+
 ```
-kafka-avro-console-consumer --bootstrap-server broker-1:9092 --topic customer-v1 
+kafka-avro-console-consumer --bootstrap-server broker-1:9092 --topic customer --from-beginning
 ```
 
 ## Reset consumer group
