@@ -155,5 +155,5 @@ services:
     ports:
       - "28002:8000"
     environment:
-      SCHEMAREGISTRY_URL: 'http://${PUBLIC_IP}:8089'
+      SCHEMAREGISTRY_URL: 'http://${PUBLIC_IP}:18081'
     restart: always
