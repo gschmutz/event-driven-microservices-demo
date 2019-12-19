@@ -115,7 +115,7 @@ and execute the `schema-registry:register` goal
 mvn schema-registry:register
 ```
 
-The schemas should be displayed in the Schema Registry UI: <http://streamingplatform:28002>. 
+The schemas should be displayed in the Schema Registry UI: <http://streamingplatform:28039>. 
 
 ## Start the Customer Microservice
 
