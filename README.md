@@ -122,13 +122,13 @@ The schemas should be displayed in the Schema Registry UI: <http://streamingplat
 Let's now start the Customer Microservice. It is available as Docker image and has to be configured with the IP address of the Docker Host. 
 
 ```
-docker run -ti -e PUBLIC_IP=$PUBLIC_IP -p 8080:8080 -d --name customer-management-ms gschmutz/customer-management-ms:1.0.1
+docker run -ti -e PUBLIC_IP=$PUBLIC_IP -p 8080:8080 -d --name customer-management-ms gschmutz/customer-management-ms:1.0.2
 ```
 
 to view the log and see that is has been started successfully, enter
 
 ```
-docker logs -f customer-managment-ms
+docker logs -f customer-management-ms
 ```
 
 
@@ -138,7 +138,7 @@ Next let's also start the Order Microservice. It is also available as Docker ima
 
 
 ```
-docker run -ti -e PUBLIC_IP=$PUBLIC_IP -p 8081:8080 -d --name order-management-ms gschmutz/order-management-ms:1.0.1
+docker run -ti -e PUBLIC_IP=$PUBLIC_IP -p 8081:8080 -d --name order-management-ms gschmutz/order-management-ms:1.0.2
 ```
 
 to view the log and see that is has been started successfully, enter
