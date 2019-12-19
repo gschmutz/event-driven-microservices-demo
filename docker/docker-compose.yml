@@ -79,17 +79,17 @@ services:
       KAFKA_JMX_HOSTNAME: 'broker-3'
     restart: always
       
-  schema-registry:
+  schema-registry-1:
     image: confluentinc/cp-schema-registry:5.3.1
-    hostname: schema-registry
-    container_name: schema-registry
+    hostname: schema-registry-1
+    container_name: schema-registry-1
     depends_on:
       - zookeeper-1
       - broker-1
     ports:
-      - "18081:8081"
+      - "28030:8081"
     environment:
-      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry-1
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper-1:2181'
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN: '*'
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS: 'GET,POST,PUT,OPTIONS'
@@ -98,23 +98,24 @@ services:
   kafka-manager:
     image: trivadis/kafka-manager
     container_name: kafka-manager
+    hostname: kafka-manager
     depends_on:
       - zookeeper-1
       - broker-1
       - broker-2
       - broker-3
     ports:
-      - "29000:9000"
+      - "28044:9000"
     environment:
       ZK_HOSTS: 'zookeeper-1:2181'
-      APPLICATION_SECRET: 'letmein'
+      APPLICATION_SECRET: 'abc123!'
     restart: always
     
   kafkahq:
     image: tchiotludo/kafkahq
     container_name: kafkahq
     ports:
-      - 28082:8080
+      - 28042:8080
     environment:
       KAFKAHQ_CONFIGURATION: |
         kafkahq:
@@ -123,27 +124,11 @@ services:
               properties:
                 bootstrap.servers: "broker-1:9092,broker-2:9093"
               schema-registry:
-                url: "http://schema-registry:8081"
-#              connect:
-#                url: "http://connect-1:8083"
+                url: "http://schema-registry-1:8081"
+              connect:
+                url: "http://connect-1:8083"
     depends_on:
       - broker-1
-    restart: always
-
-  kadmin:
-    image: hasnat/kadmin
-    container_name: kadmin
-    ports:
-      - "28080:8080"
-    environment:
-      ZOOKEEPER_HOST: zookeeper-1:2181
-      KAFKA_HOST: broker-1:9092
-      #SECURITY_PROTOCOL: SSL
-      TRUST_STORE_LOCATION: ssl/client.truststore.jks
-      TRUST_STORE_PASSWORD: password
-      KEY_STORE_LOCATION: ssl/server.keystore.jks
-      KEY_STORE_PASSWORD: password
-      KEY_PASSWORD: password
     restart: always
 
   schema-registry-ui:
@@ -151,9 +136,9 @@ services:
     container_name: schema-registry-ui
     depends_on:
       - broker-1
-      - schema-registry
+      - schema-registry-1
     ports:
-      - "28002:8000"
+      - "28039:8000"
     environment:
-      SCHEMAREGISTRY_URL: 'http://${PUBLIC_IP}:18081'
+      SCHEMAREGISTRY_URL: 'http://${PUBLIC_IP}:28030'
     restart: always
