@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class OrderEventConsumer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OrderEventConsumer.class);
 
-	//@KafkaListener(topics = "${kafka.topic.order}", containerFactory="consumerFactory")
+	@KafkaListener(topics = "${topic.order.name}", groupId = "oderMs_OrderConsumer")
 	public void receive(ConsumerRecord<Long, Order> consumerRecord) {
 		Order order = consumerRecord.value();
 		// Order product = (Order) SpecificData.get().deepCopy(Order.SCHEMA$,

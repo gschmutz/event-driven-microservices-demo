@@ -12,7 +12,7 @@ public class CustomerEventProducer {
 	@Autowired
 	private KafkaTemplate<Long, Customer> kafkaTemplate;
 	
-	@Value("${kafka.topic.customer}")
+	@Value("${topic.customer.name}")
 	String kafkaTopic;
 	
 	public void produce(Customer customer) {

@@ -18,7 +18,7 @@ public class CustomerEventConsumer {
     @Autowired
 	private CustomerService customerService;
 
-	@KafkaListener(topics = "${kafka.topic.customer}")
+	@KafkaListener(topics = "${topic.customer.name}", groupId = "oderMs_CustomerConsumer")
 	public void receive(ConsumerRecord<Long, Customer> consumerRecord) {
 		Customer customer = consumerRecord.value();
 		// Customer product = (Customer) SpecificData.get().deepCopy(Customer.SCHEMA$,

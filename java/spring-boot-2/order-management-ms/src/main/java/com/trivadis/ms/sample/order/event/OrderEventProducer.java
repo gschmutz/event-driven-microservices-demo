@@ -11,7 +11,7 @@ public class OrderEventProducer {
 	@Autowired
 	private KafkaTemplate<Long, Order> kafkaTemplate;
 	
-	@Value("${kafka.topic.order}")
+	@Value("${topic.order.name}")
 	String kafkaTopic;
 	
 	public void produce(Order order) {

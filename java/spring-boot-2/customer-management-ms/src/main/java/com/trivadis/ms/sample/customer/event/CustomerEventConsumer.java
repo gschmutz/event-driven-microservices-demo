@@ -19,7 +19,7 @@ public class CustomerEventConsumer {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
-	@KafkaListener(topics = "${kafka.topic.customer}")
+	@KafkaListener(topics = "${topic.customer.name}", groupId = "customerMs_CustomerConsumer")
 	public void receive(ConsumerRecord<Long, Customer> consumerRecord) {
 		Customer customer = consumerRecord.value();
 		LOGGER.info("received payload='{}'", customer.toString());
