@@ -33,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
 //		orderRepository.save(order);
 		
 		com.trivadis.avro.order.v1.Order avro = OrderConverter.convert(order);
+		avro.setCreatedAt(0L);
 		orderEventProducer.produce(avro);
 	}
 	

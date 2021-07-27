@@ -37,8 +37,7 @@ public class OrderConverter {
 		value.setOrderId(Long.valueOf(order.getId()));
 		value.setCurrency(CurrencyEnum.valueOf(order.getCurrency()));
 		value.setStatus(OrderStatusEnum.valueOf(order.getStatus()));
-		value.setDiscount(order.getDiscount());
-		
+
 		return value;
 	}
 	
@@ -48,7 +47,6 @@ public class OrderConverter {
 		value.setId(order.getOrderId().toString());
 		value.setCurrency(order.getCurrency().toString());
 		value.setStatus(order.getStatus().toString());
-		value.setDiscount(order.getDiscount());
 
 		return value;
 	}

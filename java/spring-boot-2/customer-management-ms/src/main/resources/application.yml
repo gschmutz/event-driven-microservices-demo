@@ -1,5 +1,5 @@
 topic:
-  customer.name: customer
+  customer.name: customer-v1
   customer.replication-factor: 3
   customer.partitions: 8
 

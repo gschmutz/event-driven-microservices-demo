@@ -6,8 +6,6 @@ public class OrderDO {
     
     private String id;
     private String status;
-    private Double totalPrice;
-    private Integer discount;
     private String currency;
     private Long customerId;
     private List<OrderLineDO> orderLines;
@@ -23,19 +21,7 @@ public class OrderDO {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public Double getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(Double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-	
-	public Integer getDiscount() {
-		return discount;
-	}
-	public void setDiscount(Integer discount) {
-		this.discount = discount;
-	}
+
 	public String getCurrency() {
 		return currency;
 	}

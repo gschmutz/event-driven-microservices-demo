@@ -1,0 +1,14 @@
+POST http://localhost:8081/api/customers
+Content-Type: application/json
+
+{
+  "customerId": "1",
+  "firstName": "Peter",
+  "lastName": "Muster",
+  "title":"Mr",
+  "emailAddress":"peter.muster@hotmail.com",
+  "addresses":[]
+}
+
+###
+GET http://localhost:8081/api/customers

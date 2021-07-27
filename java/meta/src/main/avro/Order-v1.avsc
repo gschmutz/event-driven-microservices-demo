@@ -27,19 +27,7 @@
     },
     {
       "name": "createdAt",
-      "type": "string"
-    },
-    {
-      "name": "updatedAt",
-      "type": "string"
-    },
-    {
-      "name": "totalPrice",
-      "type": "double"
-    },
-    {
-      "name": "discount",
-      "type": "int"
+      "type": "long"
     },
     {
       "name": "currency",
@@ -118,50 +106,6 @@
                 "name": "weight",
                 "type": [
                   "double",
-                  "null"
-                ]
-              },
-              {
-                "name": "dimension",
-                "type": {
-                  "type": "record",
-                  "name": "Dimension",
-                  "fields": [
-                    {
-                      "name": "unit",
-                      "type": [
-                        "string",
-                        "null"
-                      ]
-                    },
-                    {
-                      "name": "length",
-                      "type": [
-                        "double",
-                        "null"
-                      ]
-                    },
-                    {
-                      "name": "height",
-                      "type": [
-                        "double",
-                        "null"
-                      ]
-                    },
-                    {
-                      "name": "width",
-                      "type": [
-                        "double",
-                        "null"
-                      ]
-                    }
-                  ]
-                }
-              },
-              {
-                "name": "color",
-                "type": [
-                  "string",
                   "null"
                 ]
               },

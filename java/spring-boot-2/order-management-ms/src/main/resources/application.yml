@@ -1,9 +1,9 @@
 topic:
-  order.name: order
+  order.name: order-v1
   order.replication-factor: 3
   order.partitions: 8
 
-  customer.name: customer
+  customer.name: customer-v1
 
 server:
   port: 8082

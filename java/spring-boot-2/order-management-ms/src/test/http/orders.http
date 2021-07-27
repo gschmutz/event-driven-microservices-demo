@@ -1,0 +1,21 @@
+POST http://localhost:8082/api/orders
+Content-Type: application/json
+
+{
+  "orderId": "677809",
+  "customerId": "1",
+  "currency": "EUR",
+  "orderLines": [
+    {
+      "productId": 797983,
+      "quantity": 10
+    },
+    {
+      "productId": 797343,
+      "quantity": 5
+    }
+  ]
+}
+
+###
+GET http://localhost:8082/api/orders
