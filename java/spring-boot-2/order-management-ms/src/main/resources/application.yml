@@ -10,9 +10,9 @@ server:
 
 spring:
   kafka:
-    bootstrap-servers: ${PUBLIC_IP}:9092
+    bootstrap-servers: ${DATAPLATFORM_IP}:9092
     properties:
-      schema.registry.url: http://${PUBLIC_IP}:8081
+      schema.registry.url: http://${DATAPLATFORM_IP}:8081
 
     consumer:
       key-deserializer: org.apache.kafka.common.serialization.LongDeserializer

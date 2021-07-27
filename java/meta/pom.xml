@@ -99,7 +99,7 @@
     				<version>6.0.0</version>
 				<configuration>
 					<schemaRegistryUrls>
-						<param>http://dataplatform:8081</param>
+						<param>http://${env.DATAPLATFORM_IP}:8081</param>
 					</schemaRegistryUrls>
 					<subjects>
 						<customer-v1-value>src/main/avro/Customer-v1.avsc</customer-v1-value>
