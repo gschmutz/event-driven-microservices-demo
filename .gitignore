@@ -14,3 +14,5 @@ buildNumber.properties
 **/.project
 **/.settings/**
 java/spring-boot/customer-management-ms/customer-management-ms-1.0-SNAPSHOT.jar
+java/.DS_Store
+java/.idea/codeStyles/codeStyleConfig.xml
