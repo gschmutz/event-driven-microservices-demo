@@ -1,0 +1,16 @@
+spring:
+  
+  kafka:
+    bootstrap-servers: ${PUBLIC_IP}:9092
+    kafka.acks: all
+    retries: 0
+    consumer:
+      auto-offset-reset: earliest
+      group-id: order-group
+    value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+    schema-registry-url: http://${PUBLIC_IP}:8081
+
+kafka:
+  topic:
+    order: order
+    customer: customer
