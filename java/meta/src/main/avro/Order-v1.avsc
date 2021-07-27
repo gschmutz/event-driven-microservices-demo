@@ -6,7 +6,7 @@
   "fields": [
     {
       "name": "orderId",
-      "type": "string",
+      "type": "long",
       "doc": "System generated Order ID"
     },
     {

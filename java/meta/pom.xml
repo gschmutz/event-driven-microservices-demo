@@ -33,7 +33,7 @@
 	<pluginRepositories>
 		<pluginRepository>
 			<id>confluent</id>
-			<url>http://packages.confluent.io/maven/</url>
+			<url>https://packages.confluent.io/maven/</url>
 		</pluginRepository>
 	</pluginRepositories>
 	
@@ -96,10 +96,10 @@
 			<plugin>
    				<groupId>io.confluent</groupId>
     				<artifactId>kafka-schema-registry-maven-plugin</artifactId>
-    				<version>4.0.0</version>
+    				<version>6.0.0</version>
 				<configuration>
 					<schemaRegistryUrls>
-						<param>http://streamingplatform:28030</param>
+						<param>http://dataplatform:8081</param>
 					</schemaRegistryUrls>
 					<subjects>
 						<customer-v1-value>src/main/avro/Customer-v1.avsc</customer-v1-value>

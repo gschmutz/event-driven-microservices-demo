@@ -4,7 +4,7 @@
   "name" : "Customer",
   "description" : "the representation of a Customer",
   "fields" : [
-     { "name": "id", "doc": "ID", "type": ["string","null"] },  
+     { "name": "id", "doc": "ID", "type": "long" },  
 	 { "name": "firstName", "doc": "First Name", "type": "string" },
 	 { "name": "lastName", "doc": "Last Name", "type": "string" },
      { "name" : "title",
